@@ -182,3 +182,5 @@ for acronym_obj_filepath in (pbar := tqdm(acronym_obj_filepaths_2)):
         print(f"Error: {e} when processing {acronym_obj_filepath}. Skipping it.")
         print("=" * 100)
         print()
+
+# %%
