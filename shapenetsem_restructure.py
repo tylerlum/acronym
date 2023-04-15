@@ -216,7 +216,7 @@ for acronym_obj_filepath in (pbar := tqdm(acronym_obj_filepaths_2)):
                     [
                         "cp",
                         os.path.join(input_shapenetsem_texture_dir, jpg_file),
-                        os.path.join(output_shapenetsem_dir, jpg_file),
+                        os.path.join(os.path.dirname(new_obj_filepath), jpg_file),
                     ]
             )
             print(f"Running {cp_jpg_command}")
