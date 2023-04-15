@@ -50,6 +50,10 @@
 # * each acronym file should have a corresponding shapenetsem file (8836 x 2 outputs for obj and mtl)
 # * each acronym file has a filename path to mesh file that looks like meshes/Mug/10f6e09036350e92b3f21f1137c3c347.obj
 # * the shapenetsem files have a name but they don't match exactly
+# * there can be more than one mesh per category (eg. multiple under the TV directory)
+# * there can also be more than one acronym file per mesh (eg. multiple grasps for the same mesh )
+#   eg. "data/grasps/TV_dfbce5e6cca00c1448627a76b6268107_0.0038627305095302734.h5"
+#       "data/grasps/TV_dfbce5e6cca00c1448627a76b6268107_0.003957748840105706.h5"
 #
 # ## PIPELINE:
 #
@@ -144,14 +148,29 @@ num_failed = 0
 for acronym_obj_filepath in (pbar := tqdm(acronym_obj_filepaths_2)):
     pbar.set_description(f"num_failed: {num_failed}")
     try:
+        # Multiple acronym files for the same mesh, skip if already copied
+        new_file = os.path.join(output_shapenetsem_dir, acronym_obj_filepath)
+        if os.path.exists(new_file):
+            print(
+                f"Heads up: file {new_file} already exists, but that is fine. Moving onto next file."
+            )
+            continue
+
+        # Multiple meshes for the same category, continue
+        new_dir = os.path.dirname(new_file)
+        if os.path.exists(new_dir):
+            print(
+                f"Heads up: dir {new_dir} already exists, but that is fine. Continuing."
+            )
         os.makedirs(
-            os.path.join(output_shapenetsem_dir, os.path.dirname(acronym_obj_filepath))
-        )
+            new_dir, exist_ok=True
+        )  # can have more than one object in a category
+
         cp_command = " ".join(
             [
                 "cp",
                 f"{os.path.join(input_shapenetsem_dir, os.path.basename(acronym_obj_filepath))}",
-                f"{acronym_obj_filepath}",
+                f"{os.path.join(output_shapenetsem_dir, acronym_obj_filepath)}",
             ]
         )
         print(f"Running {cp_command}")
