@@ -35,12 +35,11 @@
 # ## OUTPUTS
 #
 # ```
-# {output_shapenetsem_dir}
-# └── meshes
-#     ├── Mug
-#     │   └── 10f6e09036350e92b3f21f1137c3c347.obj
-#     └── Table
-#         └── 99cf659ae2fe4b87b72437fd995483b.obj
+# {output_watertight_shapenetsem_dir}
+# ├── 1004f30be305f33d28a1548e344f0e2e.mtl
+# ├── 1004f30be305f33d28a1548e344f0e2e.obj
+# ├── 100f39dce7690f59efb94709f30ce0d2.mtl
+# ├── 100f39dce7690f59efb94709f30ce0d2.obj
 # ```
 #
 # ## NOTES
