@@ -30,7 +30,7 @@
 # ├── 1004f30be305f33d28a1548e344f0e2e.obj
 # ├── 100f39dce7690f59efb94709f30ce0d2.mtl
 # ├── 100f39dce7690f59efb94709f30ce0d2.obj
-# 
+#
 # {input_shapenetsem_texture_dir}
 # ├── 0004f1000ab18a48.jpg
 # ├── 000b6c4b5b7a8dc3.jpg
@@ -157,7 +157,7 @@ print(f"Making output dir: {output_shapenetsem_dir}")
 os.makedirs(output_shapenetsem_dir)
 print(f"Done making output dir: {output_shapenetsem_dir}")
 
-# %%
+# %% jupyter={"outputs_hidden": true}
 import re
 
 def get_jpg_files_from_mtl(mtl_filepath):
