@@ -210,7 +210,7 @@ for acronym_obj_filepath in (pbar := tqdm(acronym_obj_filepaths_2)):
 
         # Copy jpg file
         new_mtl_filepath = new_obj_filepath.replace('.obj', '.mtl')
-        jpg_files = get_jpg_files_from_mtl(os.path.join(input_shapenetsem_texture_dir, os.path.basename(new_mtl_filepath)))
+        jpg_files = get_jpg_files_from_mtl(os.path.join(input_shapenetsem_dir, os.path.basename(new_mtl_filepath)))
         for jpg_file in jpg_files:
             cp_jpg_command = " ".join(
                     [
