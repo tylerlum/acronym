@@ -62,7 +62,6 @@
 import subprocess
 import os
 from tqdm import tqdm
-from termcolor import colored
 from typing import DefaultDict
 
 
@@ -215,9 +214,7 @@ for obj_filename, mtl_filename in (
         num_failed += 1
         print("=" * 100)
         print(
-            colored(
-                f"Error: {e} when processing {obj_filename} and {mtl_filename}. Skipping it."
-            )
+            f"Error: {e} when processing {obj_filename} and {mtl_filename}. Skipping it."
         )
         print("=" * 100)
         print()
