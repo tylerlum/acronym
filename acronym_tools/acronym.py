@@ -441,3 +441,37 @@ def create_gripper_marker(color=[0, 0, 255], tube_radius=0.001, sections=6):
     tmp.visual.face_colors = color
 
     return tmp
+
+# Create cylinders at the tips of the gripper left and right with cylinders pointing inwards
+def create_gripper_tips_marker(color=[0, 0, 255], tube_radius=0.001, sections=6):
+    """Create a 3D mesh visualizing the tips of a parallel yaw gripper. It consists of two cylinders.
+
+    Args:
+        color (list, optional): RGB values of marker. Defaults to [0, 0, 255].
+        tube_radius (float, optional): Radius of cylinders. Defaults to 0.001.
+        sections (int, optional): Number of sections of each cylinder. Defaults to 6.
+
+    Returns:
+        trimesh.Trimesh: A mesh that represents the tips of a simple parallel yaw gripper.
+    """
+    cfl = trimesh.creation.cylinder(
+        radius=0.002,
+        sections=sections,
+        segment=[
+            [4.10000000e-02, -7.27595772e-12, 1.12169998e-01],
+            [4.10000000e-02 * 0.7, -7.27595772e-12, 1.12169998e-01],
+        ],
+    )
+    cfr = trimesh.creation.cylinder(
+        radius=0.002,
+        sections=sections,
+        segment=[
+            [-4.100000e-02, -7.27595772e-12, 1.12169998e-01],
+            [-4.10000000e-02 * 0.7, -7.27595772e-12, 1.12169998e-01],
+        ],
+    )
+
+    tmp = trimesh.util.concatenate([cfr, cfl])
+    tmp.visual.face_colors = color
+
+    return tmp

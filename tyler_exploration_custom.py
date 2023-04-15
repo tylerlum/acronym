@@ -21,8 +21,7 @@
 
 # %%
 mesh_root = "data/ShapeNetSem_restructured/"
-# filepath = "data/grasps/TV_dfbce5e6cca00c1448627a76b6268107_0.0038627305095302734.h5"
-filepath = "data/grasps/TV_dfbce5e6cca00c1448627a76b6268107_0.003957748840105706.h5"
+filepath = "data/grasps/AAABattery_a924eb3037129eaff8095890d92b7d6c_0.09387254242350625.h5"
 num_grasps = 20
 
 # %%
