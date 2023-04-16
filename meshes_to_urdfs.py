@@ -31,8 +31,6 @@
 #
 # Also, may have .jpg files associated with the .mtl files
 #
-# Another input is object_scaling (these objects are quite huge by default in isaac gym)
-#
 # ## OUTPUTS
 #
 # {output_urdf_dir}
@@ -80,7 +78,7 @@
 #       </geometry>
 #     </collision>
 #     <inertial>
-#         <density value="600.0"/>
+#         <density value="150.0"/>  <!-- acronym density -->
 #     </inertial>
 #   </link>
 # </robot>
@@ -102,7 +100,6 @@ from tqdm import tqdm
 input_shapenetsem_restructured_dir = (
     "/juno/u/tylerlum/github_repos/acronym/data/ShapeNetSem_restructured"
 )
-object_scaling = 0.01
 
 # %%
 print("=" * 100)
@@ -128,7 +125,7 @@ print("=" * 100)
 print("OBJECT CATEGORY FOLDERS")
 print("=" * 100)
 object_categories = os.listdir(input_meshes_dir)
-print(f"Found {len(object_categories)} files in {input_meshes_dir}")
+print(f"Found {len(object_categories)} folders in {input_meshes_dir}")
 print(f"First 10 object_categories: {object_categories[:10]}")
 print()
 
@@ -172,17 +169,17 @@ for object_category in tqdm(object_categories):
                     "    <visual>",
                     '      <origin xyz="0 0 0"/>',
                     "      <geometry>",
-                    f'        <mesh filename="{mesh_filepath}" scale="{object_scaling} {object_scaling} {object_scaling}" />',
+                    f'        <mesh filename="{mesh_filepath}"/>',
                     "      </geometry>",
                     "    </visual>",
                     "    <collision>",
                     '      <origin xyz="0 0 0"/>',
                     "      <geometry>",
-                    f'        <mesh filename="{mesh_filepath}" scale="{object_scaling} {object_scaling} {object_scaling}" />',
+                    f'        <mesh filename="{mesh_filepath}"/>',
                     "      </geometry>",
                     "    </collision>",
                     "    <inertial>",
-                    '        <density value="600.0"/>',
+                    '        <density value="150.0"/>  <!-- acronym density -->',  
                     "    </inertial>",
                     "  </link>",
                     "</robot>",
