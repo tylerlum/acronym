@@ -40,6 +40,7 @@ def make_parser():
     parser.add_argument(
         "--num_grasps", type=int, default=20, help="Number of grasps to show."
     )
+    parser.add_argument("--random_grasps", action="store_true", help="Visualize a random sample of grasps")
     parser.add_argument(
         "--mesh_root", default=".", help="Directory used for loading meshes."
     )
@@ -57,14 +58,22 @@ def main(argv=sys.argv[1:]):
         # get transformations and quality of all simulated grasps
         T, success = load_grasps(f)
 
+        # Get successful and failed transformation
+        if args.random_grasps:
+            successful_T = [t for t in T[np.random.choice(np.where(success == 1)[0], args.num_grasps)]]
+            failed_T = [t for t in T[np.random.choice(np.where(success == 0)[0], args.num_grasps)]]
+        else:
+            successful_T = [t for t in T[success == 1][:args.num_grasps]]
+            failed_T = [t for t in T[success == 0][:args.num_grasps]]
+
         # create visual markers for grasps
         successful_grasps = [
             create_gripper_marker(color=[0, 255, 0]).apply_transform(t)
-            for t in T[np.random.choice(np.where(success == 1)[0], args.num_grasps)]
+            for t in successful_T
         ]
         failed_grasps = [
             create_gripper_marker(color=[255, 0, 0]).apply_transform(t)
-            for t in T[np.random.choice(np.where(success == 0)[0], args.num_grasps)]
+            for t in failed_T
         ]
 
         trimesh.Scene([obj_mesh] + successful_grasps + failed_grasps).show()
