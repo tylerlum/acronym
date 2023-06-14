@@ -171,7 +171,6 @@ class Scene(object):
         iter = 0
         colliding = True
         while iter < max_iter and colliding:
-
             # Sample position in plane
             if gaussian:
                 while True:
@@ -363,11 +362,11 @@ def load_mesh(filename, mesh_root_dir, scale=None):
     """
     if filename.endswith(".json"):
         data = json.load(open(filename, "r"))
-        mesh_fname = data["object"].decode('utf-8')
+        mesh_fname = data["object"].decode("utf-8")
         mesh_scale = data["object_scale"] if scale is None else scale
     elif filename.endswith(".h5"):
         data = h5py.File(filename, "r")
-        mesh_fname = data["object/file"][()].decode('utf-8')
+        mesh_fname = data["object/file"][()].decode("utf-8")
         mesh_scale = data["object/scale"][()] if scale is None else scale
     else:
         raise RuntimeError("Unknown file ending:", filename)
@@ -401,6 +400,23 @@ def load_grasps(filename):
     return T, success
 
 
+# Gripper:
+# |       |  <- tip
+# |       |
+# |_______|  <- knuckle
+#     |
+#     |  <- base
+#
+# z
+# |
+# |___x
+GRIPPER_Y = 0
+LEFT_TIP_X, LEFT_TIP_Z = 4.10000000e-02, 1.12169998e-01
+RIGHT_TIP_X, RIGHT_TIP_Z = -4.100000e-02, 1.12169998e-01
+BASE_X, BASE_Z = 0, 0
+KNUCKLE_Z = 6.59999996e-02
+
+
 def create_gripper_marker(color=[0, 0, 255], tube_radius=0.001, sections=6):
     """Create a 3D mesh visualizing a parallel yaw gripper. It consists of four cylinders.
 
@@ -413,31 +429,77 @@ def create_gripper_marker(color=[0, 0, 255], tube_radius=0.001, sections=6):
         trimesh.Trimesh: A mesh that represents a simple parallel yaw gripper.
     """
     cfl = trimesh.creation.cylinder(
-        radius=0.002,
+        radius=tube_radius,
         sections=sections,
         segment=[
-            [4.10000000e-02, -7.27595772e-12, 6.59999996e-02],
-            [4.10000000e-02, -7.27595772e-12, 1.12169998e-01],
+            [LEFT_TIP_X, GRIPPER_Y, KNUCKLE_Z],
+            [LEFT_TIP_X, GRIPPER_Y, LEFT_TIP_Z],
         ],
     )
     cfr = trimesh.creation.cylinder(
-        radius=0.002,
+        radius=tube_radius,
         sections=sections,
         segment=[
-            [-4.100000e-02, -7.27595772e-12, 6.59999996e-02],
-            [-4.100000e-02, -7.27595772e-12, 1.12169998e-01],
+            [RIGHT_TIP_X, GRIPPER_Y, KNUCKLE_Z],
+            [RIGHT_TIP_X, GRIPPER_Y, RIGHT_TIP_Z],
         ],
     )
     cb1 = trimesh.creation.cylinder(
-        radius=0.002, sections=sections, segment=[[0, 0, 0], [0, 0, 6.59999996e-02]]
+        radius=tube_radius,
+        sections=sections,
+        segment=[[BASE_X, GRIPPER_Y, BASE_Z], [BASE_X, GRIPPER_Y, KNUCKLE_Z]],
     )
     cb2 = trimesh.creation.cylinder(
-        radius=0.002,
+        radius=tube_radius,
         sections=sections,
-        segment=[[-4.100000e-02, 0, 6.59999996e-02], [4.100000e-02, 0, 6.59999996e-02]],
+        segment=[
+            [LEFT_TIP_X, GRIPPER_Y, KNUCKLE_Z],
+            [RIGHT_TIP_X, GRIPPER_Y, KNUCKLE_Z],
+        ],
     )
 
     tmp = trimesh.util.concatenate([cb1, cb2, cfr, cfl])
+    tmp.visual.face_colors = color
+
+    return tmp
+
+
+# Create small cylinders at the tips of the gripper left and right with cylinders pointing inwards
+# Gripper with cylinders:
+# |--   --|  <- tip
+# |       |
+# |_______|  <- knuckle
+#     |
+#     |  <- base
+def create_gripper_tips_marker(color=[0, 0, 255], tube_radius=0.001, sections=6):
+    """Create a 3D mesh visualizing the tips of a parallel yaw gripper. It consists of two cylinders.
+
+    Args:
+        color (list, optional): RGB values of marker. Defaults to [0, 0, 255].
+        tube_radius (float, optional): Radius of cylinders. Defaults to 0.001.
+        sections (int, optional): Number of sections of each cylinder. Defaults to 6.
+
+    Returns:
+        trimesh.Trimesh: A mesh that represents the tips of a simple parallel yaw gripper.
+    """
+    cfl = trimesh.creation.cylinder(
+        radius=tube_radius,
+        sections=sections,
+        segment=[
+            [LEFT_TIP_X, GRIPPER_Y, LEFT_TIP_Z],
+            [LEFT_TIP_X * 0.7, GRIPPER_Y, LEFT_TIP_Z],
+        ],
+    )
+    cfr = trimesh.creation.cylinder(
+        radius=tube_radius,
+        sections=sections,
+        segment=[
+            [RIGHT_TIP_X, GRIPPER_Y, RIGHT_TIP_Z],
+            [RIGHT_TIP_X * 0.7, GRIPPER_Y, RIGHT_TIP_Z],
+        ],
+    )
+
+    tmp = trimesh.util.concatenate([cfr, cfl])
     tmp.visual.face_colors = color
 
     return tmp

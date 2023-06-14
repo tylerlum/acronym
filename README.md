@@ -4,6 +4,92 @@ This repository contains a sample of the grasping dataset and tools to visualize
 
 For using the full ACRONYM dataset, see instructions [below](#using-the-full-acronym-dataset).
 
+# Tyler Updates (2023-06-13)
+
+Follow the original README as usual. There are a few key useful things added. Note that these can be run as python scripts or as jupyter notebooks (should be run from `tyler_useful_scripts`):
+
+## 0. Get ACRONYM Dataset
+
+Follow instructions [here](https://sites.google.com/nvidia.com/graspdataset) to get the ACRONYM dataset and ShapeNetSem meshes.
+
+Should have the following directory structure:
+
+```
+acronym/data/grasps
+├── 1Shelves_12a64182bbaee7a12b2444829a3507de_0.00914554366969263.h5
+├── 1Shelves_160684937ae737ec5057ad0f363d6ddd_0.009562610447288044.h5
+├── 1Shelves_1e3df0ab57e8ca8587f357007f9e75d1_0.011099225885734912.h5
+├── 1Shelves_2b9d60c74bc0d18ad8eae9bce48bbeed_0.00614208274225087.h5
+├── 1Shelves_4075b78276e39db2f59ac8a5783023e7_0.003873753800979896.h5
+├── 1Shelves_842be31d76d29df0a00888d2bacdd893_0.002664003835872925.h5
+├── 1Shelves_a9c2bcc286b68ee217a3b9ca1765e2a4_0.004318170833733851.h5
+├── 1Shelves_a9c2bcc286b68ee217a3b9ca1765e2a4_0.007691275299398608.h5
+├── 1Shelves_ba5bf7a8a14c27086f9e9f74beb7c348_0.006726669391824365.h5
+```
+
+```
+acronym/data/ShapeNetSem
+├── categories.synset.csv
+├── COLLADA
+├── models
+│   ├── 1004f30be305f33d28a1548e344f0e2e.mtl
+│   ├── 1004f30be305f33d28a1548e344f0e2e.obj
+│   ├── 100f39dce7690f59efb94709f30ce0d2.mtl
+│   ├── 100f39dce7690f59efb94709f30ce0d2.obj
+│   ├── 101354f9d8dede686f7b08d9de913afe.mtl
+│   ├── 101354f9d8dede686f7b08d9de913afe.obj
+│   ├── 1018f01d42ae7fad52249d8432f6087e.mtl
+│   ├── 1018f01d42ae7fad52249d8432f6087e.obj
+│   ├── 102273fdf8d1b90041fbc1e2da054acb.mtl
+├── textures
+│   ├── 0004f1000ab18a48.jpg
+│   ├── 000b6c4b5b7a8dc3.jpg
+│   ├── 000c33be903cedc5.jpg
+│   ├── 000ec8dadff7bc1c.jpg
+│   ├── 000f125dd68e7f10.jpg
+│   ├── 00112bf8e3be136d.jpg
+│   ├── 0011e285da6ba6d9.jpg
+│   ├── 001421a14600e6e4.jpg
+│   ├── 00181a83c3090fda.jpg
+```
+
+## 1. Watertight Meshes (Optional: Didn't work for me)
+
+Run
+```
+python watertight_shapenetsem.py
+```
+
+This creates watertight meshes as per ACRONYM instructions (need to set up manifold). About half of them failed for me for some reason, so I skipped this step.
+
+## 2. Restructure ShapeNetSem
+
+Run
+```
+python shapenetsem_restructure.py
+```
+
+This changes the directory structure to be useful for future steps (more detail in script).
+
+## 3. Create URDFs
+
+Run
+```
+python meshes_to_urdfs.py
+```
+
+This creates a urdf for each of the meshes in a nice structure ready for use in simulators.
+
+Lastly, you can move this `../data/ShapeNetSem_restructured` (this is default) directory into the `nerf_grasping/assets/objects` directory (other project), so you will have `nerf_grasping/assets/objects/meshes` and `nerf_grasping/assets/objects/urdf`.
+
+All set for use in nerf_grasping.
+
+## Exploration
+
+Also, there are some scripts in `tyler_exploration_scripts` that may be useful for debugging and understanding the ACRONYM dataset.
+
+# BELOW: Original README
+
 # License
 The source code is released under [MIT License](LICENSE). The dataset is released under [CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode).
 
