@@ -66,8 +66,8 @@ from typing import DefaultDict
 
 # %%
 # INPUT PARAMS
-input_acronym_dir = "/juno/u/tylerlum/github_repos/acronym/data/grasps/"
-input_shapenetsem_dir = "/juno/u/tylerlum/github_repos/acronym/data/ShapeNetSem/models/"
+input_acronym_dir = "../data/grasps/"
+input_shapenetsem_dir = "../data/ShapeNetSem/models/"
 temp_watertight_obj_filename = "temp.watertight.obj"
 output_watertight_shapenetsem_dir = "WatertightShapeNetSem/models"
 

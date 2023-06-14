@@ -98,7 +98,7 @@ from tqdm import tqdm
 # %%
 # INPUT PARAMS
 input_shapenetsem_restructured_dir = (
-    "/juno/u/tylerlum/github_repos/acronym/data/ShapeNetSem_restructured"
+    "../data/ShapeNetSem_restructured"
 )
 
 # %%

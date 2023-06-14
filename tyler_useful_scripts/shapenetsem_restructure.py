@@ -78,11 +78,11 @@ from tqdm import tqdm
 
 # %%
 # INPUT PARAMS
-input_acronym_dir = "/juno/u/tylerlum/github_repos/acronym/data/grasps/"
-input_shapenetsem_dir = "/juno/u/tylerlum/github_repos/acronym/data/ShapeNetSem/models/"
-input_shapenetsem_texture_dir = "/juno/u/tylerlum/github_repos/acronym/data/ShapeNetSem/textures/"
+input_acronym_dir = "../data/grasps/"
+input_shapenetsem_dir = "../data/ShapeNetSem/models/"
+input_shapenetsem_texture_dir = "../data/ShapeNetSem/textures/"
 output_shapenetsem_dir = (
-    "/juno/u/tylerlum/github_repos/acronym/data/ShapeNetSem_restructured/"
+    "../data/ShapeNetSem_restructured/"
 )
 
 # %%
@@ -157,7 +157,7 @@ print(f"Making output dir: {output_shapenetsem_dir}")
 os.makedirs(output_shapenetsem_dir)
 print(f"Done making output dir: {output_shapenetsem_dir}")
 
-# %% jupyter={"outputs_hidden": true}
+# %%
 import re
 
 def get_jpg_files_from_mtl(mtl_filepath):
