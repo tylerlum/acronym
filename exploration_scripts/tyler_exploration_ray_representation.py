@@ -20,8 +20,8 @@
 # ## Input Params
 
 # %%
-mesh_root = "data/ShapeNetSem_restructured/"
-filepath = "data/grasps/AAABattery_a924eb3037129eaff8095890d92b7d6c_0.09387254242350625.h5"
+mesh_root = "../data/ShapeNetSem_restructured/"
+filepath = "../data/grasps/AAABattery_a924eb3037129eaff8095890d92b7d6c_0.09387254242350625.h5"
 num_grasps = 20
 
 # %%

@@ -14,14 +14,14 @@
 # ---
 
 # %% [markdown]
-# # ACRONYM Dataset Exploration Custom
+# # ACRONYM Dataset Exploration Example
 
 # %% [markdown]
 # ## Input Params
 
 # %%
-mesh_root = "data/ShapeNetSem_restructured/"
-filepath = "data/grasps/AAABattery_a924eb3037129eaff8095890d92b7d6c_0.09387254242350625.h5"
+mesh_root = "../data/examples/"
+filepath = "../data/examples/grasps/Mug_10f6e09036350e92b3f21f1137c3c347_0.0002682457830986903.h5"
 num_grasps = 20
 
 # %%
@@ -141,7 +141,6 @@ root_keys_with_single_value
 # %%
 import matplotlib.pyplot as plt
 import math
-import numpy as np
 num_plots = len(root_keys_with_multiple_values)
 num_rows = int(math.sqrt(num_plots))
 num_cols = int(math.ceil(num_plots / num_rows))
@@ -158,7 +157,3 @@ fig.tight_layout()
 # %%
 for root_key_with_single_value in root_keys_with_single_value:
     print(f"{root_key_with_single_value}: {data[root_key_with_single_value][()]}")
-
-# %%
-
-# %%
