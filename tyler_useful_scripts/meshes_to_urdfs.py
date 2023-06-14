@@ -88,8 +88,7 @@
 #
 # 0. create new directory for `urdf`
 #
-# 1. for each .obj file, create a .urdf file that points to it. TODO: figure out how to handle multiple obj files. Could just use 1 or make many urdfs (eg. urdf/Mug_10f6e09036350e92b3f21f1137c3c347.urdf, urdf/Mug_128ecbc10df5b05d96eaf1340564a4de.urdf)
-#
+# 1. for each .obj file, create a .urdf file that points to it
 
 # %%
 import os
